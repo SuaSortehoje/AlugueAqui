@@ -2,10 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/carnaval.jpg">
-    <link rel="icon" href="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/carnaval.jpg" type="image/jpg">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluguel de Imóvel para Carnaval</title>
     <style>
         * {
@@ -25,7 +22,6 @@
         header {
             background: #ffcc00;
             padding: 15px;
-            text-align: center;
             position: fixed;
             top: 0;
             width: 100%;
@@ -34,22 +30,67 @@
             align-items: center;
         }
 
-        header a {
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-            font-weight: bold;
+        .tracinho {
+            font-size: 24px;
             cursor: pointer;
+            color: black;
         }
 
-        .container {
-            margin-top: 5px;
+        /* Menu Lateral */
+        .menu-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -50%;
+            width: 50%;
+            height: 100%;
+            background: #333;
+            color: white;
+            padding: 20px;
+            transition: left 0.3s ease-in-out;
+        }
+
+        .menu a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            border-bottom: 1px solid #555;
+        }
+
+        .menu a:hover {
+            background-color: #444;
+        }
+
+        .menu .close-menu {
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            float: left;
+        }
+
+        .menu-container.active {
+            display: block;
+        }
+
+        .menu.active {
+            left: 0;
         }
 
         .main-image {
-            margin-top: 1px;
+            margin-top: 10px;
             width: 100%;
-            height: 800%;
+            height: auto;
             border-radius: 10px;
         }
 
@@ -66,17 +107,7 @@
             text-decoration: none;
         }
 
-        footer {
-            background: #222;
-            color: white;
-            padding: 10px;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Estilos do Modal */
+        /* Modais */
         .modal {
             display: none;
             position: fixed;
@@ -89,7 +120,7 @@
         }
 
         .modal-content {
-            background-color: white;
+            background-color: grey;
             margin: 15% auto;
             padding: 20px;
             width: 80%;
@@ -99,8 +130,9 @@
         }
 
         .close {
-            float: right;
+            float: left;
             cursor: pointer;
+            left:0;
             font-size: 20px;
         }
 
@@ -117,36 +149,19 @@
             border: 0;
         }
 
-        .menu {
-            display: none;
-            margin: 10px;
-            text-align: center;
-        }
-
-        .menu.active {
-            display: block;
-        }
-
-        .menu a {
-            display: inline;
-            gap:20px;
+        footer {
+            background: #222;
+            color: white;
             padding: 10px;
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .menu a:hover {
-            background-color: #f0f0f0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
         }
         .imgpq{
               width:30%;
               height:100px;
-              border:1px solid red;
-        }
-        .tracinho{
-              color:black;
+              border:1px solid gold;
         }
     </style>
 </head>
@@ -154,24 +169,33 @@
 
     <!-- Header -->
     <header>
-        <div class="tracinho" onclick="casa()">&#9776;</div>
-        <span id="menu" class="menu">
+        <div class="tracinho" onclick="toggleMenu()">&#9776;</div>
+    </header>
+
+    <!-- Menu Lateral -->
+    
+    <div id="menuContainer" class="menu-container" onclick="closeMenuOutside(event)">
+        <div id="menu" class="menu">
+            <span class="close-menu" onclick="toggleMenu()">&#9776</span><br>
             <a href="javascript:void(0);" onclick="openModal('modalContato')">Contato</a>
             <a href="javascript:void(0);" onclick="openModal('modalGaleria')">Galeria</a>
             <a href="javascript:void(0);" onclick="openModal('modalGPS')">GPS</a>
-        </span>
-    </header>
+        </div>
+    </div>
 
     <!-- Conteúdo principal -->
     <div class="container">
         <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/carnaval.jpg" class="main-image" alt="Imagem do imóvel">
+        
     </div><br>
-    <img class="imgpq" src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0003.jpg">
+    
+<img class="imgpq" src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0003.jpg">
     <img class="imgpq" src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0007.jpg">
     <img class="imgpq" src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0009.jpg">
-          <label>Area externa : coberta</label><br>
-          <label>lagura : 2 metro</label><br>
-          <label>comprimento : 2 metro</label>
+    
+    <label>Área externa: coberta</label><br>
+    <label>Largura: 2 metros</label><br>
+    <label>Comprimento: 2 metros</label>
 
     <!-- Modal Contato -->
     <div id="modalContato" class="modal">
@@ -188,12 +212,9 @@
             <span class="close" onclick="closeModal('modalGaleria')">&times;</span>
             <h2>Galeria</h2>
             <div class="gallery">
-                  <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/572515242186340.jpg" alt="Imagem 4"><br>
                 <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0003.jpg" alt="Imagem 1">
-                <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0009.jpg" alt="Imagem 2">
-                <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0007.jpg" alt="Imagem 3">
-                <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0006.jpg" alt="Imagem 4">
-                
+                <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0007.jpg" alt="Imagem 2">
+                <img src="https://raw.githubusercontent.com/SuaSortehoje/AlugueAqui/refs/heads/main/IMG-20250203-WA0009.jpg" alt="Imagem 3">
             </div>
         </div>
     </div>
@@ -214,6 +235,26 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            let menuContainer = document.getElementById("menuContainer");
+
+            if (menu.style.left === "0px") {
+                menu.style.left = "-50%";
+                menuContainer.classList.remove("active");
+            } else {
+                menu.style.left = "0px";
+                menuContainer.classList.add("active");
+            }
+        }
+
+        function closeMenuOutside(event) {
+            let menu = document.getElementById("menu");
+            if (!menu.contains(event.target)) {
+                toggleMenu();
+            }
+        }
+
         function openModal(id) {
             document.getElementById(id).style.display = "block";
         }
@@ -226,10 +267,6 @@
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = "none";
             }
-        }
-
-        function casa() {
-            document.getElementById("menu").classList.toggle("active");
         }
     </script>
 
